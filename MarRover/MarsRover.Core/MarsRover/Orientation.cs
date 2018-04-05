@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MarsRover
 {
-    public enum Orientation
+    public enum OrientationEnum
     {
-        North = 1,
+        North,
         South,
         East,
         West

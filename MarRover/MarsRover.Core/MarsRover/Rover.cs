@@ -12,6 +12,8 @@ namespace MarsRover
         public string ID { get; set; }
         public Vector Heading { get; set; } 
         public int Index { get; set; }
+        public TerrainSection CurrentTerrainSection { get; set; }
+
         public Rover(string ID, string NasaInstructions)
         {
             this.NasaInstructions = NasaInstructions;

@@ -10,15 +10,16 @@ namespace MarsRover
 
     public class MessageQueue
     {
-        private Stack<Message> _queueMessage;
+        private List<Message> _listMessage;
         private List<Rover> _listRover;
 
         public List<Rover> RoversOnMarsToList { get { return _listRover.ToArray().ToList();  } }
         public int MaxMessages = 0;
         public string ProcessingSequence = string.Empty;
+        public int TotalNASACommands { get { return ProcessingSequence.Length; } }
         public MessageQueue(Rover[] listRover)
         {
-            _queueMessage = new Stack<Message>();
+            _listMessage = new List<Message>();
             _listRover = new List<Rover>();
             foreach (Rover rover in listRover)
             {
@@ -37,13 +38,24 @@ namespace MarsRover
             return RoversOnMarsToList.Find(x => x.ID == ID);
         }
 
+        public Message GetMessage(int index)
+        {
+            var message = new Message();
+            if (index <= _listMessage.Count)
+            {
+                message = _listMessage[index];
+            }
+            return message;
+        }
+
         public bool AddMessage(Message message)
         {
             bool success = false;
             if (message.Data != string.Empty && message.Target != null)
             {
                 ProcessingSequence += message.Data.ToString();
-                _queueMessage.Push(message);
+                _listMessage.Add(message);
+                message.Index = _listMessage.Count();
                 success = true;
             }
             return success;
@@ -87,6 +99,9 @@ namespace MarsRover
                     stillProcessing = false;
                 }
             }
+            _listMessage = _listMessage
+              .OrderBy(r => r.GetType().GetProperty("Index").GetValue(r, null))
+              .ToList();
         }
     }
 }

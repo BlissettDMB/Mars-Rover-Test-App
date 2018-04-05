@@ -14,5 +14,6 @@ namespace MarsRover
         //}
         public string Data { get; set; }
         public Rover Target { get; set; }
+        public int Index { get; set; }
     }
 }
