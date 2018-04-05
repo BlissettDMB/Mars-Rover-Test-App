@@ -81,6 +81,13 @@ namespace MarsRover
             return success;
         }
 
+        /// <summary>
+        /// Alternates between all rovers in a sequencial manner.
+        /// The following instructions will be sent to each rover:
+        /// Rover one: LMLMLMLMM
+        /// Rover two: MMRMMRMRRM
+        /// Each rovers movement will be executed sequentially, which means that the second rover won't start to move until the first one has finished moving.
+        /// </summary>
         public void SortNasaMessagesForRovers()
         {
             bool stillProcessing = true;
