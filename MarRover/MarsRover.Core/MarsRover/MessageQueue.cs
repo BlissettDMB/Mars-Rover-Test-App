@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,20 +11,30 @@ namespace MarsRover
     public class MessageQueue
     {
         private Stack<Message> _queueMessage;
-        private Stack<Rover> _queueRover;
+        private List<Rover> _listRover;
 
-        public List<Rover> RoversOnMarsToList { get { return _queueRover.ToArray().ToList();  } }
+        public List<Rover> RoversOnMarsToList { get { return _listRover.ToArray().ToList();  } }
         public int MaxMessages = 0;
         public string ProcessingSequence = string.Empty;
         public MessageQueue(Rover[] listRover)
         {
             _queueMessage = new Stack<Message>();
-            _queueRover = new Stack<Rover>();
+            _listRover = new List<Rover>();
             foreach (Rover rover in listRover)
             {
-                _queueRover.Push(rover);
+                _listRover.Add(rover);
+                rover.Index = _listRover.Count();
             }
-            
+
+            _listRover = _listRover
+                      .OrderBy(r => r.GetType().GetProperty("Index").GetValue(r, null))
+                      .ToList();
+
+        }
+
+        public Rover GetRoverByID(string ID)
+        {
+            return RoversOnMarsToList.Find(x => x.ID == ID);
         }
 
         public bool AddMessage(Message message)
@@ -46,32 +57,27 @@ namespace MarsRover
             int lastRoverIndex = 0;//Used to alternate rover
             int currentMessageIndex = 0;
             int roverCount = 0;
-            foreach (Rover rover in _queueRover)
+            foreach (Rover rover in _listRover)
             {
-                //Pay instructions in correct order
-                //NASAInstructions.Add(rover.NasaInstructions.Reverse().ToString().ToCharArray());
-
-
                 MaxMessages = Math.Max(rover.NasaInstructions.Replace(",", string.Empty).Length, MaxMessages);
             }
             
             //If we have no instructions to process... exit
-            if (_queueRover.Count == 0) return;
+            if (_listRover.Count == 0) return;
 
             while (stillProcessing)
             {
-                //NASAInstructions[lastRoverInstructionIndex]
-                if (currentMessageIndex < _queueRover.ToArray()[lastRoverIndex].NasaInstructions.Split(',').ToList().Count() )
+                if (currentMessageIndex < _listRover.ToArray()[lastRoverIndex].NasaInstructions.Split(',').Count() )
                 {
                     var message = new Message
                     {
-                        Data = _queueRover.ToArray()[lastRoverIndex].NasaInstructions.Split(',').ToList()[currentMessageIndex],
-                        Target = _queueRover.ToArray()[lastRoverIndex]
+                        Data = _listRover.ToArray()[lastRoverIndex].NasaInstructions.Split(',').ToList()[currentMessageIndex],
+                        Target = _listRover.ToArray()[lastRoverIndex]
                     };
                     AddMessage(message);
                 }
                 lastRoverIndex++;
-                if (lastRoverIndex == _queueRover.Count)
+                if (lastRoverIndex == _listRover.Count)
                 {
                     lastRoverIndex = 0;
                     currentMessageIndex++;
