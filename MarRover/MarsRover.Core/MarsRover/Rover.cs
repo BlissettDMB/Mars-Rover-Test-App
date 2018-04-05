@@ -32,5 +32,11 @@ namespace MarsRover
             this.Heading = heading;
             this.Index = Index;
         }
+
+        public override string ToString()
+        {
+            string Orientation = Enumerations.GetEnumDescription((OrientationEnum)Heading.CurrentOrientation);
+            return String.Format("{0}:  {1},{2}, {3}", ID, Heading.Axis.X, Heading.Axis.Y, Orientation);
+        }
     }
 }

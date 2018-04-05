@@ -14,22 +14,26 @@ namespace MarsRover.Console
             //var rover1 = new Rover("Rover 1", string.Join(",", "L,M,L,M,L,M,L,M,M".Split(',').Reverse<string>()));
             //var rover2 = new Rover("Rover 2", string.Join(",", "M,M,R,M,M,R,M,R,R,M".Split(',').Reverse<string>()));
 
-            var rover1 = new Rover("Rover 1", string.Join(",", "L,M,L,M,L,M,L,M,M".Split(',').Reverse<string>()), new Vector(new Point(1, 2), OrientationEnum.North));
-            var rover2 = new Rover("Rover 2", string.Join(",", "M,M,R,M,M,R,M,R,R,M".Split(',').Reverse<string>()), new Vector(new Point(3, 3), OrientationEnum.East));
+            //var rover1 = new Rover("Rover one", string.Join(",", "L,M,L,M,L,M,L,M,M".Split(',').Reverse<string>()), new Vector(new Point(1, 2), OrientationEnum.North));
+            //var rover2 = new Rover("Rover two", string.Join(",", "M,M,R,M,M,R,M,R,R,M".Split(',').Reverse<string>()), new Vector(new Point(3, 3), OrientationEnum.East));
 
             //var rover1 = new Rover("Rover 1", string.Join(",", "L,M,L,M,L,M,L,M,M".Split(',')));
             //var rover2 = new Rover("Rover 2", string.Join(",", "M,M,R,M,M,R,M,R,R,M".Split(',')));
 
+            var rover1 = new Rover("Rover one", string.Join(",", "L,M,L,M,L,M,L,M,M".Split(',')), new Vector(new Point(1, 2), OrientationEnum.North));
+            var rover2 = new Rover("Rover two", string.Join(",", "M,M,R,M,M,R,M,R,R,M".Split(',')), new Vector(new Point(3, 3), OrientationEnum.East));
 
             var messageQueue = new MessageQueue(new Rover[] { rover1, rover2 });
             messageQueue.SortNasaMessagesForRovers();
             RoverMovementComponent movementComponent = new RoverMovementComponent(messageQueue);
             movementComponent.ProcessMessages();
-            //System.Diagnostics.Debug.WriteLine(messageQueue.RoversOnMarsToList.Count);
-            System.Diagnostics.Debug.WriteLine(messageQueue.ProcessingSequence); 
-            //System.Diagnostics.Debug.WriteLine(Math.Max("LMLMLMLMM".Length, "MMRMMRMRRM".Length));
 
+            foreach (Rover rover in messageQueue.RoversOnMarsToList)
+            {
+                System.Diagnostics.Debug.WriteLine(rover.ToString());
+            }
 
+            
 
         }
     }
