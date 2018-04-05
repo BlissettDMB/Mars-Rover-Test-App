@@ -9,7 +9,7 @@ namespace MarsRover
     public class RoverMovementComponent
     {
         public MessageQueue RoverMessageQueue { get; set; }
-        public TerrainSection[,] Grid = new TerrainSection[5,5];
+        public TerrainSection[,] Grid = new TerrainSection[6,6];
         public List<Rover> Rovers = new List<Rover>();
 
 
@@ -21,9 +21,9 @@ namespace MarsRover
         }
 
         public void InitialGrid() {
-            for (int iGridColumnIndex = 0; iGridColumnIndex < 5; iGridColumnIndex++)
+            for (int iGridColumnIndex = 0; iGridColumnIndex <= 5; iGridColumnIndex++)
             {
-                for (int iGridRowIndex = 0; iGridRowIndex < 5; iGridRowIndex++)
+                for (int iGridRowIndex = 0; iGridRowIndex <= 5; iGridRowIndex++)
                 {
                     Grid[iGridColumnIndex, iGridRowIndex] = new TerrainSection(iGridColumnIndex, iGridRowIndex);
                 }
@@ -185,10 +185,6 @@ namespace MarsRover
             {
                 Message message = RoverMessageQueue.GetMessage(iCommand);
                 MoveRover(message);
-                if (iCommand == 18)
-                {
-                    System.Diagnostics.Debugger.Break();
-                }
             }
             
         }

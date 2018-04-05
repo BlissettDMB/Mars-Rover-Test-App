@@ -32,8 +32,12 @@ namespace MarsRover.Console
             {
                 System.Diagnostics.Debug.WriteLine(rover.ToString());
             }
+            System.Diagnostics.Debug.WriteLine(messageQueue.GetRoverByID("Rover one").ToString());
+            System.Diagnostics.Debug.WriteLine("Rover one:  1,3, N");
+            System.Diagnostics.Debug.WriteLine(messageQueue.GetRoverByID("Rover two").ToString());
+            System.Diagnostics.Debug.WriteLine("Rover two: 5,1, E");
 
-            
+
 
         }
     }

@@ -13,15 +13,11 @@ namespace MarsRover.Test
     public class RoverMovementComponent_UnitTest
     {
         [TestMethod]
-        public void TestMethod1()
-        {
-        }
-
-        [TestMethod]
         public void RoverMovementComponent_WhenCompleteTextMatch_ReturnsTrue()
         {
-            var rover1 = new Rover("Rover one", string.Join(",", "L,M,L,M,L,M,L,M,M".Split(',').Reverse<string>()), new Vector(new Point(1, 2), OrientationEnum.North));
-            var rover2 = new Rover("Rover two", string.Join(",", "M,M,R,M,M,R,M,R,R,M".Split(',').Reverse<string>()), new Vector(new Point(3, 3), OrientationEnum.East));
+
+            var rover1 = new Rover("Rover one", string.Join(",", "L,M,L,M,L,M,L,M,M".Split(',')), new Vector(new Point(1, 2), OrientationEnum.North));
+            var rover2 = new Rover("Rover two", string.Join(",", "M,M,R,M,M,R,M,R,R,M".Split(',')), new Vector(new Point(3, 3), OrientationEnum.East));
 
             var messageQueue = new MessageQueue(new Rover[] { rover1, rover2 });
 
