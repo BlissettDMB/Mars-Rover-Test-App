@@ -36,8 +36,8 @@ namespace MarsRover.Test
                 System.Diagnostics.Debug.WriteLine(rover.ToString());
             }
 
-            Assert.AreEqual(messageQueue.GetRoverByID("Rover 1").ToString(), "Rover one:  1,3, N");
-            Assert.AreEqual(messageQueue.GetRoverByID("Rover 2").ToString(), "Rover two:  5,1, E");
+            Assert.AreEqual(messageQueue.GetRoverByID("Rover one").ToString(), "Rover one:  1,3, N");
+            Assert.AreEqual(messageQueue.GetRoverByID("Rover two").ToString(), "Rover two:  5,1, E");
         }
     }
 }
