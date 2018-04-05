@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace MarsRover
 {
-
+    /// <summary>
+    /// MessageQueue Object. This object will keep all messages from Nasa, Sort them, and ensure that they are played back in sequential order for any number of Rovers.
+    /// </summary>
     public class MessageQueue
     {
         private List<Message> _listMessage;
@@ -17,6 +19,10 @@ namespace MarsRover
         public int MaxMessages = 0;
         public string ProcessingSequence = string.Empty;
         public int TotalNASACommands { get { return ProcessingSequence.Length; } }
+        /// <summary>
+        /// MessageQueue Constructor
+        /// </summary>
+        /// <param name="listRover"></param>
         public MessageQueue(Rover[] listRover)
         {
             _listMessage = new List<Message>();
@@ -33,11 +39,21 @@ namespace MarsRover
 
         }
 
+        /// <summary>
+        /// Returns a Rover Object By an ID Filter (e.g. "Rover one")
+        /// </summary>
+        /// <param name="ID">(e.g. "Rover one")</param>
+        /// <returns></returns>
         public Rover GetRoverByID(string ID)
         {
             return RoversOnMarsToList.Find(x => x.ID == ID);
         }
 
+        /// <summary>
+        /// Returns a Message Based on Index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public Message GetMessage(int index)
         {
             var message = new Message();
@@ -47,7 +63,11 @@ namespace MarsRover
             }
             return message;
         }
-
+        /// <summary>
+        /// Add a NASA Message to List for Processing
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public bool AddMessage(Message message)
         {
             bool success = false;
@@ -63,12 +83,9 @@ namespace MarsRover
 
         public void SortNasaMessagesForRovers()
         {
-            //List<char[]> NASAInstructions = new List<char[]>();
             bool stillProcessing = true;
-            
             int lastRoverIndex = 0;//Used to alternate rover
             int currentMessageIndex = 0;
-            int roverCount = 0;
             foreach (Rover rover in _listRover)
             {
                 MaxMessages = Math.Max(rover.NasaInstructions.Replace(",", string.Empty).Length, MaxMessages);

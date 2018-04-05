@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MarsRover
 {
+    /// <summary>
+    /// Message Object. Represents a signle Message Entity
+    /// </summary>
     public class Message
     {
         //public Message(char data, Rover target) {

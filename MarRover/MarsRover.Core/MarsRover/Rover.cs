@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MarsRover
 {
+    /// <summary>
+    /// Rover Object. Used By the NASA Program
+    /// </summary>
     public class Rover
     {
         public string NasaInstructions { get; set; }

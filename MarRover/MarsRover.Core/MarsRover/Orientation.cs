@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace MarsRover
 {
+    /// <summary>
+    /// Enum representation for Cardinal Directions
+    /// </summary>
     public enum OrientationEnum
     {
         [Description("N")]
@@ -21,6 +24,10 @@ namespace MarsRover
 
 
     }
+
+    /// <summary>
+    /// Helper routine to get Enumerator in Text Format
+    /// </summary>
     public static class Enumerations
     {
         public static string GetEnumDescription(Enum value)

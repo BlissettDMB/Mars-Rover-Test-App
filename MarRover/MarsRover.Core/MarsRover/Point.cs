@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace MarsRover
 {
+
+    /// <summary>
+    /// Point Object. 
+    /// </summary>
     public class Point
     {
         public int X;

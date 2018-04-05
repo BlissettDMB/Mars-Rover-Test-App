@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace MarsRover
 {
+    /// <summary>
+    /// Rover Movement Component. Contains Logic for Processing the NASA Rover
+    /// </summary>
     public class RoverMovementComponent
     {
         public MessageQueue RoverMessageQueue { get; set; }
         public TerrainSection[,] Grid = new TerrainSection[6,6];
         public List<Rover> Rovers = new List<Rover>();
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="RoverMessageQueue"></param>
         public RoverMovementComponent(MessageQueue RoverMessageQueue)
         {
             this.RoverMessageQueue = RoverMessageQueue;
@@ -20,6 +26,9 @@ namespace MarsRover
             InitialGrid();
         }
 
+        /// <summary>
+        /// Setup the Grid that will simulate the Terrain On Mars
+        /// </summary>
         public void InitialGrid() {
             for (int iGridColumnIndex = 0; iGridColumnIndex <= 5; iGridColumnIndex++)
             {
@@ -35,6 +44,10 @@ namespace MarsRover
             }
         }
 
+        /// <summary>
+        /// Place the Rover in its initial Position once it Lands on Mars.
+        /// </summary>
+        /// <param name="rover"></param>
         private void SetRoverDefaults(Rover rover)
         {
             //The Grid knows which rover is where
@@ -45,6 +58,11 @@ namespace MarsRover
             rover.Heading.CurrentOrientationDegrees = GetOrientationByOrientationEnum(rover.Heading.CurrentOrientation);
         }
 
+
+        /// <summary>
+        /// Routine used to simulate Movement of the Rover for a Single Message.
+        /// </summary>
+        /// <param name="message"></param>
         private void MoveRover(Message message)
         {
             Rover rover = message.Target;
@@ -115,7 +133,11 @@ namespace MarsRover
         }
 
 
-
+        /// <summary>
+        /// Returns the current Orientation of the Rover in Degrees
+        /// </summary>
+        /// <param name="CurrentOrientation"></param>
+        /// <returns></returns>
         public int GetOrientationByOrientationEnum(OrientationEnum CurrentOrientation)
         {
             int Orientation = 0;
@@ -147,6 +169,11 @@ namespace MarsRover
             return Orientation;
         }
 
+        /// <summary>
+        /// Gets the Cadinal Direction in Enum Format based on Direction Supplied in Degrees
+        /// </summary>
+        /// <param name="CurrentOrientationDegrees"></param>
+        /// <returns></returns>
         public OrientationEnum GetOrientationByDegrees(int CurrentOrientationDegrees)
         {
             OrientationEnum Orientation = 0;
@@ -177,6 +204,10 @@ namespace MarsRover
             }
             return Orientation;
         }
+
+        /// <summary>
+        /// Start Point for Processing the Messages
+        /// </summary>
         public void ProcessMessages()
         {
             int TotalNASACommands = RoverMessageQueue.TotalNASACommands;

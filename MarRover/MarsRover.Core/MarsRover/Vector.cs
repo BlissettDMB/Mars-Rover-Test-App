@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MarsRover
 {
+    /// <summary>
+    /// This Object holds the Trajectory information as needed by the Rover.
+    /// </summary>
     public class Vector
     {
         public Point Axis;
