@@ -20,7 +20,7 @@ namespace MarsRover
             NorthCell = new Point(Cell.X, Cell.Y + 1);
             SouthCell = new Point(Cell.X, Cell.Y - 1);
             WestCell = new Point(Cell.X -1, Cell.Y);
-            EastCell = new Point(Cell.X, Cell.Y + 1);
+            EastCell = new Point(Cell.X +1, Cell.Y);
         }
     }
 }

@@ -185,6 +185,10 @@ namespace MarsRover
             {
                 Message message = RoverMessageQueue.GetMessage(iCommand);
                 MoveRover(message);
+                if (iCommand == 18)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
             }
             
         }
